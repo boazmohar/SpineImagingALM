@@ -5,7 +5,7 @@ Kerlin, A., Mohar, B., Flickinger, D., MacLennan, B.J., Davis, C., Spruston, N.,
 
 ## Visualization (SpinveVis)
 The accompanying website [SpineVis](spinevis.janelia.org) has all the sessions included in the paper.  
-The paper's supplement shows how to finding the underlying session and data for each figure.
+The paper's supplement shows how to find the underlying session and data for each figure.
 See the documentation for the website's API [here](https://github.com/boazmohar/spinevis/blob/master/docs/API.md)
 
 
