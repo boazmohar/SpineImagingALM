@@ -12,6 +12,7 @@ The python package we used is called `prep` within it are several modules:
 5. Embedding.py - Has code to embed  small 2d fields back to 3d space for visualization and tracing.
 6. IO.py - Has read and write related functions
 7. Utils.py - Has misc. helper functions
+8. Step.py, Steps.py, Pipeline.py - Preprocessing related functions
 
 ## Requierments
 
