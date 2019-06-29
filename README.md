@@ -1,7 +1,18 @@
 ﻿# Spine imaging
-This repository is accompanying the paper:
-***Functional clustering of dendritic activity during decision-making*** 
+This repository is accompanying the paper:  
+***Functional clustering of dendritic activity during decision-making***   
 Kerlin, A., Mohar, B., Flickinger, D., MacLennan, B.J., Davis, C., Spruston, N., and Svoboda, K. (2018). [BioRxiv 440396](https://www.biorxiv.org/content/early/2018/10/10/440396)
+
+## Code
+The python package we used is called `prep` within it are several modules:
+1. Session.py - Is the main class that handels reading data from [ScanImage](https://vidriotechnologies.com/scanimage/) 
+2. SpineSession.py - a direved class from Session.py that knows how to handle [mROI](http://scanimage.vidriotechnologies.com/display/SI2018/Multiple+Region+of+Interest+%28MROI%29+Imaging) data from ScanImage alongsinde a `Sp.mat` file that defines the trajectory and other metadata of a spine imaging session.
+3. Registration.py - Has registration related functions
+4. Timecourses.py - Has code for extraction of time corses after registration and tracing. Includes functions to masure distances among spines and dendrites.
+5. Embedding.py - Has code to embed  small 2d fields back to 3d space for visualization and tracing.
+6. IO.py - Has read and write related functions
+7. Utils.py - Has misc. helper functions
+
 ## Requierments
 
 ### Spark
@@ -47,12 +58,14 @@ Inside there would be the following:
 ## Example session for analysis
 If you choose to run the code on a single mechine localy you will be able to see the results of most of the steps but only on a subset of the data due to high demand of memory our analysis requires.
 
+###  Example data
+Please download the `data.zip` file from [figshare](https://figshare.com/s/3d6d65a09a3b3bd7af1e).
+Please change the paths in the notebook according to the location of the files after you extract them.
+
 ### Notebooks
 An example notebook `151123_BMWR30_Example.ipynb` shows how to run localy.
 If yout have sufficent resorces you can run the same notebook but with loading all of the data and with deafult parameters for the registration steps (number of clusters etc.).
  
-###  Example data
-Please download the `data.zip` file from [figshare](https://figshare.com/s/3d6d65a09a3b3bd7af1e).
-Please change the paths in the notebook according to the location of the files after you extract them.
+
  
 
