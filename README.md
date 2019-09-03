@@ -1,4 +1,4 @@
-﻿# Spine imaging
+# Spine imaging
 This repository is accompanying the paper:  
 ***Functional clustering of dendritic activity during decision-making***   
 Kerlin, A., Mohar, B., Flickinger, D., MacLennan, B.J., Davis, C., Spruston, N., and Svoboda, K. (2018). [BioRxiv 440396](https://www.biorxiv.org/content/early/2018/10/10/440396)
@@ -41,7 +41,7 @@ Each file would be 3d array of images that is:
 	1. (z) #planes per volume x  #volumes per trial
 	2. x pixels
 	3. y pixels
- - `Sp.mat` file has information from our [trajectory design GUI](www.github.com) about the location and timing of each imaging field.
+ - `Sp.mat` file has information from our trajectory design GUI about the location and timing of each imaging field (see the folder ***Matlab\ Segmentation***).
  - `behavior.mat` file with information regarding the type of the behavioral trial, when and where the animal licked etc.
 
 #### Procced data
@@ -53,7 +53,7 @@ After registration, a few intimidate files are saved.
 
 At this point these have defaults that are right for our cluster folder structure and could be changed.
 
-After tracing of the registered session is complete a few more files are made in a different location based on the following  structure:
+After tracing of the registered session (see the ***Matlab\workflow.m*** and ***Matlab\DendSegmentation\***) is complete a few more files are made in a different location based on the following  structure:
 ***[base_folder]/Database/[Animal]/[FOV]/[Date_Run]***
 For example: ***/Users/username/Data/Database/BMWR30/FOV2/151123_Run1***
 Inside there would be the following:
@@ -72,7 +72,3 @@ Please change the paths in the notebook according to the location of the files a
 ### Notebooks
 An example notebook `151123_BMWR30_Example.ipynb` shows how to run locally.
 If you have sufficient resources, you can run the same notebook but with loading all of the data and with default parameters for the registration steps (number of clusters etc.).
- 
-
- 
-
