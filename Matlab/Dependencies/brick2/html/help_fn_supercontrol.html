@@ -1,0 +1,183 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>fn_supercontrol</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-04-13"><meta name="DC.source" content="help_fn_supercontrol.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>fn_supercontrol</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Source</a></li></ul></div><h2>Syntax<a name="1"></a></h2><pre>X = fn_supercontrol([hp,]specs[,callback[,x0]])
+specs = fn_supercontrol.examplespecs</pre><h2>Description<a name="2"></a></h2><pre>Input:
+- hp          uipanel handle
+- specs       structure with fields:
+              . name      string
+              . controls  structure with fields (* is mandatory):
+                          style*  popupmenu, edit, checkbox,
+                                  pushbutton or stepper
+                          string  the 'string' property of the
+                                  control
+                          length* relative width occupied by the
+                                  control + its label if any
+                          default* default value (type depends on
+                                  control style)
+                          label   a label placed on the left
+                          labellength     relative width occupied by
+                                  the label (set to 0 if no label)
+                          callback        for push button only:
+                                  function with prototype
+                                  valuek = fun(value) where value is
+                                  a cell array and valuek an element
+                                  of this array [MORE DOC NEEDED]
+                          more    more properties stored in a cell
+                                  array with successive pairs of
+                                  property names/values
+- callback    function to be executed when control values are
+              changed by user, with prototype @(x)fun(x),
+              where x is X.x (see below)
+- x0          initial value (see below comments on X.x)</pre><pre>Output:
+- X           fn_supercontrol object; X.x is a structure that
+              stores the values, with fields:
+              .name       string
+              .active     logical
+              .value      cell array with values (one per
+                          control in the specs of the same
+                          name)</pre><pre>One can change the values either by user action (acionning
+the controls) or by setting the value of X.x.</pre><pre>Special notes:
+- chgactive flag: The callback might be invoked but the
+"active" part of the value has not changed (for example, when
+a new, inactive line has been creadted). The property
+X.activechg says whether this active part has changed or not.
+- 'edit': if a given control has the style 'edit', but its
+data is set to numeric value instead of a string, the data is
+stored in the 'userdata' property of the control, and the
+string 'userdata' is diplayed.
+- 'pushbutton': when pressing the button, the callback is executed
+and changes the value accordingly</pre><pre>See also fn_control</pre><h2>Source<a name="3"></a></h2><p>Thomas Deneux</p><p>Copyright 2010-2012</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% fn_supercontrol
+
+%% Syntax
+%  X = fn_supercontrol([hp,]specs[,callback[,x0]])
+%  specs = fn_supercontrol.examplespecs
+
+%% Description
+%  Input:
+%  - hp          uipanel handle
+%  - specs       structure with fields:
+%                . name      string
+%                . controls  structure with fields (* is mandatory):
+%                            style*  popupmenu, edit, checkbox,
+%                                    pushbutton or stepper
+%                            string  the 'string' property of the
+%                                    control
+%                            length* relative width occupied by the
+%                                    control + its label if any
+%                            default* default value (type depends on
+%                                    control style)
+%                            label   a label placed on the left
+%                            labellength     relative width occupied by
+%                                    the label (set to 0 if no label)
+%                            callback        for push button only:
+%                                    function with prototype 
+%                                    valuek = fun(value) where value is
+%                                    a cell array and valuek an element
+%                                    of this array [MORE DOC NEEDED]
+%                            more    more properties stored in a cell
+%                                    array with successive pairs of
+%                                    property names/values
+%  - callback    function to be executed when control values are
+%                changed by user, with prototype @(x)fun(x),
+%                where x is X.x (see below)
+%  - x0          initial value (see below comments on X.x)
+% 
+%  Output:
+%  - X           fn_supercontrol object; X.x is a structure that
+%                stores the values, with fields:
+%                .name       string
+%                .active     logical
+%                .value      cell array with values (one per
+%                            control in the specs of the same
+%                            name)
+% 
+%  One can change the values either by user action (acionning
+%  the controls) or by setting the value of X.x.
+% 
+%  Special notes:
+%  - chgactive flag: The callback might be invoked but the
+%  "active" part of the value has not changed (for example, when
+%  a new, inactive line has been creadted). The property
+%  X.activechg says whether this active part has changed or not.
+%  - 'edit': if a given control has the style 'edit', but its
+%  data is set to numeric value instead of a string, the data is
+%  stored in the 'userdata' property of the control, and the
+%  string 'userdata' is diplayed.
+%  - 'pushbutton': when pressing the button, the callback is executed
+%  and changes the value accordingly
+% 
+%  See also fn_control
+
+%% Source
+% Thomas Deneux
+%
+% Copyright 2010-2012
+%
+
+##### SOURCE END #####
+--></body></html>

@@ -1,0 +1,118 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>fn_axis</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-04-16"><meta name="DC.source" content="help_fn_axis.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>fn_axis</h1><!--introduction--><p>Set a nice range to axes</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input</a></li><li><a href="#3">Example</a></li><li><a href="#6">Source</a></li></ul></div><h2>Syntax<a name="1"></a></h2><pre>[ax =] fn_axis([ha,]'tight|image|tightimage',sidefactor,'y0')</pre><h2>Input<a name="2"></a></h2><pre>- flag            'tight'     stretch the axis as much as possible
+                  'image'     set an equal ratio between x and y
+                  'tightimag' stretch the axis as much as possible, while
+                              maintaining an equal ratio between x and y
+- sidefactor      scalar or 2-elements vector &gt;1 but close to one: the
+                  difference with 1 indicates the small gap to leave to
+                  the side
+- 'y0' flag       set ymin to 0</pre><h2>Example<a name="3"></a></h2><p>A typical plotting command that results in an uggly automatic range.</p><pre class="codeinput">plot(sin(0:.01:100))
+</pre><img vspace="5" hspace="5" src="help_fn_axis_01.png" alt=""> <p>Matlab '|axis tight|' fixes it to some extent, but now the range is too tight!</p><pre class="codeinput">axis <span class="string">tight</span>
+</pre><img vspace="5" hspace="5" src="help_fn_axis_02.png" alt=""> <p><tt>fn_axis</tt> function allows to be "maximally tight" for x and more visually pleasant for y.</p><pre class="codeinput">fn_axis(<span class="string">'tight'</span>,[1 1.2])
+</pre><img vspace="5" hspace="5" src="help_fn_axis_03.png" alt=""> <h2>Source<a name="6"></a></h2><p>Thomas Deneux</p><p>Copyright 2010-2012</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% fn_axis
+% Set a nice range to axes
+%
+%% Syntax
+% 
+%  [ax =] fn_axis([ha,]'tight|image|tightimage',sidefactor,'y0')
+%
+%% Input
+%  - flag            'tight'     stretch the axis as much as possible
+%                    'image'     set an equal ratio between x and y
+%                    'tightimag' stretch the axis as much as possible, while
+%                                maintaining an equal ratio between x and y
+%  - sidefactor      scalar or 2-elements vector >1 but close to one: the
+%                    difference with 1 indicates the small gap to leave to 
+%                    the side
+%  - 'y0' flag       set ymin to 0
+% 
+%% Example
+% A typical plotting command that results in an uggly automatic range.
+
+plot(sin(0:.01:100))
+
+%%
+% Matlab '|axis tight|' fixes it to some extent, but now the range is too
+% tight!
+
+axis tight
+
+%%
+% |fn_axis| function allows to be "maximally tight" for x and more visually
+% pleasant for y.
+
+fn_axis('tight',[1 1.2])
+
+%% Source
+% Thomas Deneux
+%
+% Copyright 2010-2012
+
+##### SOURCE END #####
+--></body></html>

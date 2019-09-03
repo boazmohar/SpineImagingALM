@@ -1,0 +1,111 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>fn_cd</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-04-13"><meta name="DC.source" content="help_fn_cd.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>fn_cd</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Source</a></li></ul></div><h2>Syntax<a name="1"></a></h2><pre>rep = fn_cd(flag,relpath)
+fn_cd('edit')
+This  allows user to rapidly change the current directory or get</pre><h2>Description<a name="2"></a></h2><pre>the full path to some files.</pre><pre>- Type 'fn_cd edit' to launch a GUI interface that enables you to define
+  your own absolute and relative paths (for example the full path to your
+  home, to which will be associated the flag 'home')
+- Then type 'fn_cd home' to set Matlab current directory to your home.
+- Type 'a = fn_cd('home');' to get the full path to your home (note that
+  this will not change Matlab current directory
+- Additional arguments to fn_cd can be used to access subdirectories or
+  files inside a flagged folder. For example, type 'fn_cd home dir1 dir2'
+  to set Matlab current directory to the subdirectory dir1/dir2 inside
+  your home directory, or type 'a = fn_cd('home','dir1/myfile');' to get
+  the full path to the file 'myfile' inside the subdirectory 'dir1'
+  inside your home directory.</pre><h2>Source<a name="3"></a></h2><p>Thomas Deneux</p><p>Copyright 2002-2012</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% fn_cd
+
+%% Syntax
+%  rep = fn_cd(flag,relpath)
+%  fn_cd('edit')
+% This  allows user to rapidly change the current directory or get
+
+%% Description
+%  the full path to some files. 
+% 
+%  - Type 'fn_cd edit' to launch a GUI interface that enables you to define
+%    your own absolute and relative paths (for example the full path to your
+%    home, to which will be associated the flag 'home')
+%  - Then type 'fn_cd home' to set Matlab current directory to your home.
+%  - Type 'a = fn_cd('home');' to get the full path to your home (note that
+%    this will not change Matlab current directory
+%  - Additional arguments to fn_cd can be used to access subdirectories or
+%    files inside a flagged folder. For example, type 'fn_cd home dir1 dir2'
+%    to set Matlab current directory to the subdirectory dir1/dir2 inside
+%    your home directory, or type 'a = fn_cd('home','dir1/myfile');' to get
+%    the full path to the file 'myfile' inside the subdirectory 'dir1'
+%    inside your home directory.
+
+%% Source
+% Thomas Deneux
+%
+% Copyright 2002-2012
+%
+
+##### SOURCE END #####
+--></body></html>

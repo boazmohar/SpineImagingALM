@@ -1,0 +1,142 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>alias</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-04-13"><meta name="DC.source" content="help_alias.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>alias</h1><!--introduction--><p>An alias object is an object whose default displaying behavior has been overwriten and instead executes a specific command. This is a very convenient way of defining shortcuts.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li><li><a href="#5">Notes:</a></li><li><a href="#6">See also</a></li><li><a href="#7">Source</a></li></ul></div><h2>Syntax<a name="1"></a></h2><pre>shortcut = alias(cmd[,msg])
+disp(shortcut)
+alias.save
+alias.add
+alias.load</pre><h2>Example<a name="2"></a></h2><p>The following line defines a shortcut that displays a surface in figure 1.</p><pre class="codeinput">f1 = alias(<span class="string">'figure(1), surf(fn_smooth(rand(40),6))'</span>,<span class="string">'hello!'</span>);
+disp(f1)
+</pre><pre class="codeoutput">alias object, executes the following command when displayed:
+figure(1), surf(fn_smooth(rand(40),6))
+</pre><p>Execute the preceding lines, then just type <tt>f1</tt> to get the shortcut executed.</p><pre class="codeinput">f1
+</pre><pre class="codeoutput">hello!
+</pre><img vspace="5" hspace="5" src="help_alias_01.png" alt=""> <p>Save your shortcuts by typing <tt>alias.save</tt> (or <tt>alias.add</tt> to save new shortcuts without overwriting those already defined), and load them with <tt>alias.load</tt>.</p><h2>Notes:<a name="5"></a></h2><p>- If no semi-column ';' is placed after the alias definition, the command is immediately executed, since the object default displaying behavior is to execute the command rather than displaying itself!</p><p>- As can be noticed in the example however, the 'disp' method of the object has also been overwritten, and results in displaying the command in the Matlab command. Also, if a second argument is used during alias definition, a custom message can be displayed while the command is being executed</p><p>- <tt>alias</tt> works only in the base workspace, and any way, it would be a very bad practice to use something similar when writing Matlab functions!</p><p>- any time <tt>clear</tt> or <tt>clear all</tt> is executed, all alias object are deleted and need to be reloaded if you want to continue using them. Consider creating an alias such as <tt>cl = alias('clear all, alias.load')</tt>!</p><h2>See also<a name="6"></a></h2><p>Use should definitively use also <a href="&#34;http://blogs.mathworks.com/desktop/2007/03/29/shortcuts-for-commonly-used-code/&#34;">Matlab shortcuts toolbar</a> to get commands executed with a simple mouse-click!</p><h2>Source<a name="7"></a></h2><p>Thomas Deneux</p><p>Copyright 2009-2012</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% alias
+% An alias object is an object whose default displaying behavior has been
+% overwriten and instead executes a specific command. This is a very
+% convenient way of defining shortcuts. 
+
+%% Syntax
+%  shortcut = alias(cmd[,msg])
+%  disp(shortcut)
+%  alias.save
+%  alias.add
+%  alias.load
+
+%% Example
+% The following line defines a shortcut that displays a surface in figure
+% 1.
+
+f1 = alias('figure(1), surf(fn_smooth(rand(40),6))','hello!');
+disp(f1)
+
+%%
+% Execute the preceding lines, then just type |f1| to get the shortcut
+% executed.
+
+f1
+
+%%
+% Save your shortcuts by typing |alias.save| (or |alias.add| to save new
+% shortcuts without overwriting those already defined), and load them with
+% |alias.load|.
+
+%% Notes:
+% 
+% - If no semi-column ';' is placed after the alias definition, the command
+% is immediately executed, since the object default displaying behavior is
+% to execute the command rather than displaying itself!
+%
+% - As can be noticed in the example however, the 'disp' method of the
+% object has also been overwritten, and results in displaying the command
+% in the Matlab command. Also, if a second argument is used during alias
+% definition, a custom message can be displayed while the command is being
+% executed
+% 
+% - |alias| works only in the base workspace, and any way, it would
+% be a very bad practice to use something similar when writing Matlab
+% functions!
+%
+% - any time |clear| or |clear all| is executed, all alias object are
+% deleted and need to be reloaded if you want to continue using them.
+% Consider creating an alias such as |cl = alias('clear all, alias.load')|!
+
+%% See also
+% Use should definitively use also
+% <"http://blogs.mathworks.com/desktop/2007/03/29/shortcuts-for-commonly-used-code/"
+% Matlab shortcuts toolbar> to get commands executed with a simple
+% mouse-click!
+
+
+%% Source
+% Thomas Deneux
+%
+% Copyright 2009-2012
+
+
+##### SOURCE END #####
+--></body></html>

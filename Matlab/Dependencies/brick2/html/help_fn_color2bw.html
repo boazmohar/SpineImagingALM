@@ -1,0 +1,111 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>fn_color2bw</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-04-16"><meta name="DC.source" content="help_fn_color2bw.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>fn_color2bw</h1><!--introduction--><p>GUI interface that helps user to convert a color image to a grayscale image while maintaining the result as visually informative as possible.</p><p>This is very useful for example when one has produced color figures for a publication and want to have them grayscale in the printed version for economic reason.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Example</a></li><li><a href="#7">Source</a></li></ul></div><h2>Syntax<a name="1"></a></h2><pre>b = fn_color2bw(a)</pre><h2>Example<a name="2"></a></h2><pre class="codeinput">load <span class="string">clown</span>
+a = fn_clip(X',<span class="string">''</span>,map);
+b = fn_color2bw(a);
+</pre><p><img vspace="5" hspace="5" src="fn_color2bw_0.png" alt=""> </p><p><img vspace="5" hspace="5" src="fn_color2bw_1.png" alt=""> </p><p><img vspace="5" hspace="5" src="fn_color2bw_2.png" alt=""> </p><p><img vspace="5" hspace="5" src="fn_color2bw_3.png" alt=""> </p><h2>Source<a name="7"></a></h2><p>Thomas Deneux</p><p>Copyright 2005-2012</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% fn_color2bw
+% GUI interface that helps user to convert a color image to a grayscale
+% image while maintaining the result as visually informative as possible. 
+%
+% This is very useful for example when one has produced color figures for a
+% publication and want to have them grayscale in the printed version for
+% economic reason.
+
+%% Syntax
+%  b = fn_color2bw(a)
+
+%% Example
+
+load clown
+a = fn_clip(X','',map);
+b = fn_color2bw(a);
+
+%%
+% <<fn_color2bw_0.png>>
+%%
+% <<fn_color2bw_1.png>>
+%%
+% <<fn_color2bw_2.png>>
+%%
+% <<fn_color2bw_3.png>>
+
+%% Source
+% Thomas Deneux
+%
+% Copyright 2005-2012
+
+
+
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>

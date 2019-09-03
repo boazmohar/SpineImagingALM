@@ -1,0 +1,125 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>fn_cubeview</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-04-13"><meta name="DC.source" content="help_fn_cubeview.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>fn_cubeview</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Description</a></li><li><a href="#3">Source</a></li></ul></div><h2>Syntax<a name="1"></a></h2><pre>[img =] fn_cubeview(data[,d[,r]])</pre><h2>Description<a name="2"></a></h2><pre>creates an image of the 3-dimensional data where we see 3 faces of a
+cube with xy, yz and xz sides</pre><pre>if no output is requested, displays the image in a figure and add edges</pre><pre>faces display:       ______
+    _ z            / Ypane/|
+    /|           /______/Xpane
+   /             |      |  |
+   ---&gt; x        |front | /
+  |              |______|/
+  v y</pre><pre>Input:
+- data    3D array
+- d       size of the side trapezes (the yz and xz faces);
+          if d&gt;1, size is in pixels, if d&lt;1, it defines the ratio between
+          the side trapezes sizes and the xy size;
+          if it is a scalar, it defines the x size, and the y size is
+          chosen so as to put perspective with and angle of 35~40
+          degrees, if it has 2 elements, it defines the x and y sizes
+- r       ratio for perspective projection (0&lt;r&lt;=1, r=1 is orthogonal
+          projection)</pre><pre>Output
+- img     an image showing the cube, with a white background</pre><h2>Source<a name="3"></a></h2><p>Thomas Deneux</p><p>Copyright 2010-2012</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% fn_cubeview
+
+%% Syntax
+%  [img =] fn_cubeview(data[,d[,r]])
+
+%% Description
+%  creates an image of the 3-dimensional data where we see 3 faces of a
+%  cube with xy, yz and xz sides
+% 
+%  if no output is requested, displays the image in a figure and add edges
+% 
+%  faces display:       ______                                              
+%      _ z            / Ypane/|                                            
+%      /|           /______/Xpane                                        
+%     /             |      |  |                                            
+%     REPLACE_WITH_DASH_DASH-> x        |front | /                                             
+%    |              |______|/                                              
+%    v y                                                                   
+% 
+%  Input:
+%  - data    3D array
+%  - d       size of the side trapezes (the yz and xz faces); 
+%            if d>1, size is in pixels, if d<1, it defines the ratio between
+%            the side trapezes sizes and the xy size; 
+%            if it is a scalar, it defines the x size, and the y size is
+%            chosen so as to put perspective with and angle of 35~40
+%            degrees, if it has 2 elements, it defines the x and y sizes
+%  - r       ratio for perspective projection (0<r<=1, r=1 is orthogonal
+%            projection)
+% 
+%  Output
+%  - img     an image showing the cube, with a white background
+
+%% Source
+% Thomas Deneux
+%
+% Copyright 2010-2012
+%
+
+##### SOURCE END #####
+--></body></html>

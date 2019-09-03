@@ -1,0 +1,220 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>fn_control</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-04-16"><meta name="DC.source" content="help_fn_control.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>fn_control</h1><!--introduction--><p>Arrangement of control buttons that reflect the state of a set of parameters</p><p><tt>fn_control</tt> transforms a structure <tt>s</tt> into a <tt>fn_control</tt> object <tt>X</tt> based on <tt>s</tt> and displays controls in a figure or a uipanel. The control actions are to modify the values in <tt>X</tt>, and inversely, modifying the values in <tt>X</tt> changes the control displays.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Syntax</a></li><li><a href="#2">Input</a></li><li><a href="#3">Output</a></li><li><a href="#4">Possible values for the fields of spec:</a></li><li><a href="#5">Examples</a></li><li><a href="#7">See also</a></li><li><a href="#8">Source</a></li></ul></div><h2>Syntax<a name="1"></a></h2><pre>X = fn_control(s[,spec][,fun][,hparent][,'okbutton|nobutton')
+fn_control demo</pre><h2>Input<a name="2"></a></h2><pre>- s           structure to intialize X
+- fun         function with prototype @(s)fun, which will be called
+              by X
+- spec        structure with additional information on the aspect and
+              behavior of the controls (see below); it should have
+              the same fields as s (though some fields can be
+              omitted)
+- hp          parent figure or uipanel where to create the controls
+              (a new figure is created if not specified)
+- 'okbutton' or 'nobutton'
+              specifically specify to have an ok button or no button</pre><h2>Output<a name="3"></a></h2><pre>- X           a fn_control object, which can be manipulated using
+             usual structure syntax</pre><h2>Possible values for the fields of spec:<a name="4"></a></h2><pre>[]            automatic guess how to display the control
+'logical'     check box
+'multcheck [n]' array of n check boxes
+{'str1','str2',...}
+              list box with specified string values
+{'list|radio|button' 'str1','str2',...}
+              specification of the type of display [default: list]
+              for a choice between string values
+'char [n [nlin]]'
+              input for string, if n is specified, sets the minimal
+              length of the input in number of characters, otherwise,
+              minimal length is set according to the value in s
+              if nlin is specified, control occupies nlin lines
+              instead of 1
+'double [n]'  input for numerical array
+'single [n]'  input for numerical array
+'slider min max [step] [format]'
+              slider, specify min, max, step (optional) and format of the
+              string representation (optional)
+'logslider min max [step] [format]'
+              logarithmic scale slider (min and max should be the log of
+              the effective min and max)
+'loglogslider min max [step] [format]'
+              logarithmic scale slider, with possibility to select
+              also a negative number
+'stepper [n [min [max [step [format]]]]]'
+              input for n double
+              if n&gt;1, it is possible to define n values for min, max,
+              step, separated by commas, for example: 0,-Inf,-1
+'clip'        input for 2-elements vector (usually, min and max);
+              move the mouse in the control area to change the value
+'xdouble, xsingle, xchar [n], x[log[log]]slider min max [..],
+xstepper, xclip'
+              additional display of a check box: value will be empty
+              if the box is not checked
+              it is possible to specify a default value inside
+              brackets at the end of the flag, for example:
+              'xchar 12 [yes we can]' (here the brackets do not mean
+              that this default value is optional, but they must
+              appear in the string)
+'file|dir'    button for selecting file name / directory name</pre><h2>Examples<a name="5"></a></h2><p>Copy-paste the code below or run <tt><a href="matlab:fn_control('demo')">fn_control demo</a></tt> for a simple example.</p><pre class="codeinput">s = struct(<span class="string">'a'</span>,false,<span class="string">'b'</span>,1,<span class="string">'c'</span>,2,<span class="string">'d'</span>,<span class="string">'hello'</span>,<span class="string">'e'</span>,[0 1],<span class="string">'f'</span>,pwd);
+spec = struct(<span class="string">'c'</span>,<span class="string">'xslider 0 10 1'</span>,<span class="string">'d'</span>,{{<span class="string">'hello'</span>,<span class="string">'yo'</span>}},<span class="string">'e'</span>,<span class="string">'clip'</span>,<span class="string">'f'</span>,<span class="string">'dir'</span>);
+myfun = @disp;
+fn_control(s,spec,myfun);
+</pre><img vspace="5" hspace="5" src="help_fn_control_01.png" alt=""> <p>Run <tt><a href="matlab:fn_movie('demo')">fn_movie demo</a></tt> for a more elaborate usage.</p><h2>See also<a name="7"></a></h2><p><a href="help_fn_structedit.html">fn_structedit</a></p><h2>Source<a name="8"></a></h2><p>Thomas Deneux</p><p>Copyright 2007-2012</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% fn_control
+% Arrangement of control buttons that reflect the state of a set of parameters
+%
+% |fn_control| transforms a structure |s| into a |fn_control| object |X|
+% based on |s| and displays controls in a figure or a uipanel. The control
+% actions are to modify the values in |X|, and inversely, modifying the
+% values in |X| changes the control displays. 
+
+%% Syntax
+%  X = fn_control(s[,spec][,fun][,hparent][,'okbutton|nobutton')
+%  fn_control demo
+
+%% Input
+%
+%  - s           structure to intialize X
+%  - fun         function with prototype @(s)fun, which will be called
+%                by X
+%  - spec        structure with additional information on the aspect and
+%                behavior of the controls (see below); it should have
+%                the same fields as s (though some fields can be
+%                omitted)
+%  - hp          parent figure or uipanel where to create the controls
+%                (a new figure is created if not specified)
+%  - 'okbutton' or 'nobutton'
+%                specifically specify to have an ok button or no button
+%
+%% Output
+%
+%  - X           a fn_control object, which can be manipulated using
+%               usual structure syntax
+%
+%% Possible values for the fields of spec:
+%
+%  []            automatic guess how to display the control
+%  'logical'     check box
+%  'multcheck [n]' array of n check boxes
+%  {'str1','str2',...}
+%                list box with specified string values
+%  {'list|radio|button' 'str1','str2',...}
+%                specification of the type of display [default: list]
+%                for a choice between string values
+%  'char [n [nlin]]'
+%                input for string, if n is specified, sets the minimal
+%                length of the input in number of characters, otherwise,
+%                minimal length is set according to the value in s
+%                if nlin is specified, control occupies nlin lines
+%                instead of 1
+%  'double [n]'  input for numerical array
+%  'single [n]'  input for numerical array
+%  'slider min max [step] [format]'
+%                slider, specify min, max, step (optional) and format of the
+%                string representation (optional)
+%  'logslider min max [step] [format]'
+%                logarithmic scale slider (min and max should be the log of
+%                the effective min and max)
+%  'loglogslider min max [step] [format]'
+%                logarithmic scale slider, with possibility to select
+%                also a negative number
+%  'stepper [n [min [max [step [format]]]]]'
+%                input for n double
+%                if n>1, it is possible to define n values for min, max,
+%                step, separated by commas, for example: 0,-Inf,-1
+%  'clip'        input for 2-elements vector (usually, min and max);
+%                move the mouse in the control area to change the value
+%  'xdouble, xsingle, xchar [n], x[log[log]]slider min max [..],
+%  xstepper, xclip'
+%                additional display of a check box: value will be empty
+%                if the box is not checked
+%                it is possible to specify a default value inside
+%                brackets at the end of the flag, for example:
+%                'xchar 12 [yes we can]' (here the brackets do not mean
+%                that this default value is optional, but they must
+%                appear in the string)
+%  'file|dir'    button for selecting file name / directory name
+
+%% Examples
+% Copy-paste the code below or run |<matlab:fn_control('demo') fn_control demo>| for a simple example. 
+
+s = struct('a',false,'b',1,'c',2,'d','hello','e',[0 1],'f',pwd);
+spec = struct('c','xslider 0 10 1','d',{{'hello','yo'}},'e','clip','f','dir');
+myfun = @disp;
+fn_control(s,spec,myfun);
+
+%%
+% Run |<matlab:fn_movie('demo') fn_movie demo>| for a more elaborate usage.
+
+%% See also 
+% <help_fn_structedit.html fn_structedit>
+
+%% Source
+% Thomas Deneux
+%
+% Copyright 2007-2012
+
+
+##### SOURCE END #####
+--></body></html>

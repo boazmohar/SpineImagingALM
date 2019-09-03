@@ -1,0 +1,255 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>createhelpfiles</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2012-04-13"><meta name="DC.source" content="createhelpfiles.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><pre class="codeinput">fn_cd <span class="string">brick</span>
+d = cellstr(fn_ls(<span class="string">'*.m'</span>));
+opt = struct(<span class="string">'outputDir'</span>,fn_cd(<span class="string">'brick'</span>,<span class="string">'html'</span>));
+
+<span class="keyword">for</span> kfile=:length(d)
+
+    <span class="comment">% file names</span>
+    mfile = d{kfile};
+    disp(mfile)
+    <span class="keyword">if</span> strcmp(mfile,<span class="string">'Contents.m'</span>), <span class="keyword">continue</span>, <span class="keyword">end</span>
+    hfile = [<span class="string">'helpsource/autohelp/help_'</span> mfile];
+
+    <span class="comment">% read file</span>
+    content = cellstr(fn_readtext(mfile));
+
+    <span class="comment">% get desc and copyright blocks</span>
+    khelpend = 0;
+    syntax = {};
+    desc = {};
+    copyright = {};
+    <span class="keyword">for</span> k=2:length(content)
+        line = content{k};
+        istart = find(line~=<span class="string">' '</span>,1,<span class="string">'first'</span>);
+        <span class="keyword">if</span> isempty(istart) || line(istart)~=<span class="string">'%'</span>
+            <span class="keyword">if</span> k==2
+                error <span class="string">'no desc found'</span>
+            <span class="keyword">elseif</span> ~khelpend
+                khelpend = k;
+            <span class="keyword">elseif</span> k==khelpend+1
+                disp <span class="string">'no copyright found'</span>
+            <span class="keyword">else</span>
+                <span class="keyword">break</span>
+            <span class="keyword">end</span>
+            <span class="keyword">continue</span>
+        <span class="keyword">else</span>
+            line = line(istart:end);
+        <span class="keyword">end</span>
+        <span class="keyword">if</span> ~khelpend &amp;&amp; isempty(desc) &amp;&amp; ~isempty(strfind(line,<span class="string">'function'</span>))
+            syntax{end+1} = strrep(line,<span class="string">'function'</span>,<span class="string">''</span>);
+        <span class="keyword">elseif</span> ~khelpend
+            <span class="keyword">if</span> length(line)&lt;2 || line(2)~=<span class="string">'-'</span> <span class="comment">% avoid the '%---' line</span>
+                desc{end+1} = line;
+            <span class="keyword">end</span>
+        <span class="keyword">else</span>
+            copyright{end+1} = line;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% formatting syntax</span>
+    <span class="keyword">for</span> k=1:length(syntax)
+        line = syntax{k};
+        desc{k} = [<span class="string">'% '</span> line(2:end)]; <span class="comment">% syntax for formatted block</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% formatting description</span>
+    <span class="keyword">for</span> k=1:length(desc)
+        line = desc{k};
+        desc{k} = [<span class="string">'% '</span> line(2:end)]; <span class="comment">% syntax for formatted block</span>
+    <span class="keyword">end</span>
+
+    <span class="comment">% whole formatted help</span>
+    out = {[<span class="string">'%% '</span> fn_fileparts(mfile,<span class="string">'base'</span>)]};
+    <span class="keyword">if</span> ~isempty(syntax)
+        out = [out <span class="keyword">...</span>
+            {<span class="string">''</span>} <span class="keyword">...</span>
+            <span class="string">'%% Syntax'</span> <span class="keyword">...</span>
+            syntax]; <span class="comment">%#ok&lt;*AGROW&gt;</span>
+    <span class="keyword">end</span>
+    <span class="keyword">if</span> ~isempty(desc)
+        <span class="keyword">for</span> k=1:length(syntax)
+            line = syntax{k};
+            istart = 1+find(line(2:end)~=<span class="string">' '</span>,1,<span class="string">'first'</span>);
+            syntax{k} = [<span class="string">'%  '</span> line(istart:end)]; <span class="comment">%#ok&lt;*SAGROW&gt; % syntax for formatted block</span>
+        <span class="keyword">end</span>
+        out = [out <span class="keyword">...</span>
+            {<span class="string">''</span>} <span class="keyword">...</span>
+            <span class="string">'%% Description'</span> <span class="keyword">...</span>
+            desc];
+    <span class="keyword">end</span>
+    <span class="keyword">if</span> ~isempty(copyright)
+        [copyright{2,:}] = deal(<span class="string">'%'</span>);
+        out = [out <span class="keyword">...</span>
+            {<span class="string">''</span>} <span class="keyword">...</span>
+            <span class="string">'%% Source'</span> <span class="keyword">...</span>
+            copyright(:)'];
+    <span class="keyword">end</span>
+
+    <span class="comment">% finish</span>
+    fn_savetext(out,hfile)
+    publish(hfile,opt);
+
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Error: File: /spawn/home/deneux/Matlab/brick/helpsource/createhelpfiles.m Line: 5 Column: 11
+Unexpected MATLAB operator.
+</pre><p class="footer"><br>
+      Published with MATLAB&reg; 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+fn_cd brick
+d = cellstr(fn_ls('*.m'));
+opt = struct('outputDir',fn_cd('brick','html'));
+
+for kfile=:length(d)
+    
+    % file names
+    mfile = d{kfile};
+    disp(mfile)
+    if strcmp(mfile,'Contents.m'), continue, end
+    hfile = ['helpsource/autohelp/help_' mfile];
+    
+    % read file
+    content = cellstr(fn_readtext(mfile));
+    
+    % get desc and copyright blocks
+    khelpend = 0;
+    syntax = {};
+    desc = {};
+    copyright = {};
+    for k=2:length(content)
+        line = content{k};
+        istart = find(line~=' ',1,'first');
+        if isempty(istart) || line(istart)~='%'
+            if k==2
+                error 'no desc found'
+            elseif ~khelpend
+                khelpend = k;
+            elseif k==khelpend+1
+                disp 'no copyright found'
+            else
+                break
+            end
+            continue
+        else
+            line = line(istart:end);
+        end
+        if ~khelpend && isempty(desc) && ~isempty(strfind(line,'function'))
+            syntax{end+1} = strrep(line,'function','');
+        elseif ~khelpend
+            if length(line)<2 || line(2)~='-' % avoid the '%REPLACE_WITH_DASH_DASH-' line
+                desc{end+1} = line;
+            end
+        else
+            copyright{end+1} = line;
+        end
+    end
+    
+    % formatting syntax
+    for k=1:length(syntax)
+        line = syntax{k};
+        desc{k} = ['% ' line(2:end)]; % syntax for formatted block
+    end
+    
+    % formatting description
+    for k=1:length(desc)
+        line = desc{k};
+        desc{k} = ['% ' line(2:end)]; % syntax for formatted block
+    end
+    
+    % whole formatted help
+    out = {['%% ' fn_fileparts(mfile,'base')]};
+    if ~isempty(syntax)
+        out = [out ...
+            {''} ...
+            '%% Syntax' ...
+            syntax]; %#ok<*AGROW>
+    end
+    if ~isempty(desc)
+        for k=1:length(syntax)
+            line = syntax{k};
+            istart = 1+find(line(2:end)~=' ',1,'first');
+            syntax{k} = ['%  ' line(istart:end)]; %#ok<*SAGROW> % syntax for formatted block
+        end
+        out = [out ...
+            {''} ...
+            '%% Description' ...
+            desc];
+    end
+    if ~isempty(copyright)
+        [copyright{2,:}] = deal('%');
+        out = [out ...
+            {''} ...
+            '%% Source' ...
+            copyright(:)'];
+    end
+        
+    % finish
+    fn_savetext(out,hfile)
+    publish(hfile,opt);
+    
+end
+##### SOURCE END #####
+--></body></html>
