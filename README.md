@@ -3,7 +3,7 @@ This repository is accompanying the paper:
 ***Functional clustering of dendritic activity during decision-making***   
 Kerlin, A., Mohar, B., Flickinger, D., MacLennan, B.J., Davis, C., Spruston, N., and Svoboda, K. (2018). [BioRxiv 440396](https://www.biorxiv.org/content/early/2018/10/10/440396)
 
-## Visualization (SpinveVis)
+## Visualization (SpineVis)
 The accompanying website [SpineVis](spinevis.janelia.org) has all the sessions included in the paper.  
 The paper's supplement shows how to find the underlying session and data for each figure.
 See the documentation for the website's API [here](https://github.com/boazmohar/spinevis/blob/master/docs/API.md)
