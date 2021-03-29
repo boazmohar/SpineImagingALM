@@ -68,7 +68,7 @@ pyasn1==0.4.4
 pyasn1-modules==0.2.2
 pycircstat==0.0.2
 pyerf==1.0.1
-Pygments==2.2.0
+Pygments==2.7.4
 pylru==1.1.0
 pymongo==3.7.2
 pyparsing==2.3.0
