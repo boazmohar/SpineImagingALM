@@ -12,7 +12,7 @@ colorama==0.4.0
 colorcet==0.9.1
 colorlog==3.1.4
 colormap==1.0.1
-cvxopt==1.2.2
+cvxopt==1.2.7
 cycler==0.10.0
 dask==0.20.0
 decorator==4.3.0
